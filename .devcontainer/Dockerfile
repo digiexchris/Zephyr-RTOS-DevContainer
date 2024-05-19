@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
 ## Arguments
-ARG ZSDK_VERSION=0.16.6
+ARG ZSDK_VERSION=0.16.7
 ARG LLVM_VERSION=14
 ARG WGET_ARGS="-q --show-progress --progress=bar:force:noscroll --no-check-certificate"
 
@@ -55,12 +55,6 @@ RUN wget https://raw.githubusercontent.com/Sarcasm/run-clang-format/master/run-c
 RUN mkdir -p /opt/toolchains && wget ${WGET_ARGS} https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${ZSDK_VERSION}/zephyr-sdk-${ZSDK_VERSION}_linux-x86_64.tar.xz && \
     tar -xf "zephyr-sdk-${ZSDK_VERSION}_linux-x86_64.tar.xz" -C /opt/toolchains && \
     rm "zephyr-sdk-${ZSDK_VERSION}_linux-x86_64.tar.xz"
-
-## Zephyr SDK (only arm toolchain)
-# RUN wget ${WGET_ARGS} https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${ZSDK_VERSION}/zephyr-toolchain-arm-${ZSDK_VERSION}-x86_64-linux-setup.run && \
-#     chmod +x "zephyr-toolchain-arm-${ZSDK_VERSION}-x86_64-linux-setup.run" && \
-#     sh "zephyr-toolchain-arm-${ZSDK_VERSION}-x86_64-linux-setup.run" --quiet -- -d /opt/toolchains/zephyr-sdk-${ZSDK_VERSION} && \
-#     rm "zephyr-toolchain-arm-${ZSDK_VERSION}-x86_64-linux-setup.run"
 
 ## Zephyr
 RUN west init /workspaces/zephyrproject && \
